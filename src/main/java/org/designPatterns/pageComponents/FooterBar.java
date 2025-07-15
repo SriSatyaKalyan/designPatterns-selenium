@@ -15,12 +15,12 @@ public class FooterBar extends AbstractComponent {
         super(driver, sectionElement); //when we inherit parent class, we invoke parent class constructor in the child constructor
     }
 
-    public void getFlightAttribute(){
+    public String getFlightAttribute(){
         // creating custom find element, restricting search scope
-        System.out.println("footer class attribute is: " + findElement(flights).getAttribute("class"));
+        return "footer class attribute is: " + findElement(flights).getAttribute("class");
     }
 
-    public void getLinkCount(){
-        System.out.println("The number of links in footer are: " + findElements(links).size());
+    public int getLinkCount(){
+        return findElements(links).size();
     }
 }

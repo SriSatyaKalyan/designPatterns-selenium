@@ -12,12 +12,12 @@ public class NavigationBar extends AbstractComponent {
         super(driver, sectionElement);
     }
 
-    public void getFlightAttribute(){
+    public String getFlightAttribute(){
         // creating custom find element, restricting search scope
-        System.out.println("header class attribute is: " + findElement(flights).getAttribute("class"));
+        return "header class attribute is: " + findElement(flights).getAttribute("class");
     }
 
-    public void getLinkCount(){
-        System.out.println("The number of links in header are: " + findElements(links).size());
+    public int getLinkCount(){
+        return findElements(links).size();
     }
 }
