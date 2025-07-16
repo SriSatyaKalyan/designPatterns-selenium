@@ -8,6 +8,8 @@ import org.designPatterns.pageComponents.NavigationBar;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
+import java.util.HashMap;
+
 public class TravelHomePage {
     WebDriver driver;
     By footerSectionElement = By.id("traveller-home");
@@ -35,7 +37,7 @@ public class TravelHomePage {
         this.searchFlightAvail = strategyFactor.createStrategy(strategyType);
     }
 
-    public void checkAvail(String origin, String destination){
-        searchFlightAvail.checkAvail(origin, destination);
+    public void checkAvail(HashMap<String, String> reservationDetails){
+        searchFlightAvail.checkAvail(reservationDetails);
     }
 }

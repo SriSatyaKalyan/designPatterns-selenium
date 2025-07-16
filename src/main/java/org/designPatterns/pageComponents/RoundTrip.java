@@ -5,6 +5,8 @@ import org.designPatterns.abstractComponents.SearchFlightAvail;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
+import java.util.HashMap;
+
 public class RoundTrip extends AbstractComponent implements SearchFlightAvail {
 
     private By rdo = By.id("ctl00_mainContent_rbtnl_Trip_1");
@@ -18,11 +20,11 @@ public class RoundTrip extends AbstractComponent implements SearchFlightAvail {
     }
 
     @Override
-    public void checkAvail(String origin, String destination) {
-        System.out.println("RoundTrip Class: " + origin + ", " + destination);
+    public void checkAvail(HashMap<String, String> reservationDetails) {
+        System.out.println("RoundTrip Class: " + reservationDetails.get("origin") + ", " + reservationDetails.get("destination"));
         findElement(rdo).click();
-        selectOriginCity(origin);
-        selectDestinationCity(destination);
+        selectOriginCity(reservationDetails.get("origin"));
+        selectDestinationCity(reservationDetails.get("destination"));
         findElement(cb).click();
         findElement(search).click();
     }

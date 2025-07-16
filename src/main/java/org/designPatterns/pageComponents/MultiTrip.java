@@ -5,6 +5,9 @@ import org.designPatterns.abstractComponents.SearchFlightAvail;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
+import java.util.HashMap;
+import java.util.function.Consumer;
+
 public class MultiTrip extends AbstractComponent implements SearchFlightAvail {
 
     private By modalPopUp = By.id("MultiCityModelAlert");
@@ -16,16 +19,6 @@ public class MultiTrip extends AbstractComponent implements SearchFlightAvail {
 
     public MultiTrip(WebDriver driver, By sectionElement) {
         super(driver, sectionElement);
-    }
-
-    @Override
-    public void checkAvail(String origin, String destination) {
-        System.out.println("MultiTrip Class: " + origin + ", " + destination);
-        findElement(multiCity_rdo).click();
-        findElement(modalPopUp).click();
-        selectOriginCity(origin);
-        selectDestinationCity(destination);
-        selectDestinationCity("BLR");
     }
 
     public void selectOriginCity(String origin){
@@ -41,5 +34,28 @@ public class MultiTrip extends AbstractComponent implements SearchFlightAvail {
     public void selectDestinationCityII(String destination_2){
         findElement(to).click();
         findElement(By.xpath("(//a[@value='" + destination_2 + "'])[3]")).click();
+    }
+
+    public void makeStateReady(Consumer<MultiTrip> consumer){
+        //common pre-requisite code
+        System.out.println("MultiTrip Class");
+        findElement(multiCity_rdo).click();
+        findElement(modalPopUp).click();
+
+        waitForElementToDisappear(modalPopUp);
+
+        //accepts any method mentioned in this - in this case MultiTrip
+        consumer.accept(this);
+        //execute actual function
+        //tear-down method
+    }
+
+    @Override
+    public void checkAvail(HashMap<String, String> reservationDetails) {
+        makeStateReady(s -> selectOriginCity(reservationDetails.get("origin")));
+
+        selectOriginCity(reservationDetails.get("origin"));
+        selectDestinationCity(reservationDetails.get("destination"));
+        selectDestinationCity(reservationDetails.get("destination"));
     }
 }

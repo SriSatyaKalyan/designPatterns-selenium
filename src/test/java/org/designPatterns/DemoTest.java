@@ -9,12 +9,15 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.Test;
 
+import java.util.HashMap;
+
 public class DemoTest {
 
     @Test
     public void flightTest(){
         System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver");
         WebDriver driver = new ChromeDriver();
+        HashMap<String, String> reservationDetails = new HashMap<>();
 
         TravelHomePage travelHomePage = new TravelHomePage(driver);
         travelHomePage.goTo();
@@ -26,6 +29,11 @@ public class DemoTest {
 
         travelHomePage.setBookingStrategy("multitrip");
 //        travelHomePage.setBookingStrategy("roundTrip");
-        travelHomePage.checkAvail("MAA", "HYD");
+
+        reservationDetails.put("origin", "MAA");
+        reservationDetails.put("destination", "HYD");
+        reservationDetails.put("destinationII", "BLR");
+
+        travelHomePage.checkAvail(reservationDetails);
     }
 }
