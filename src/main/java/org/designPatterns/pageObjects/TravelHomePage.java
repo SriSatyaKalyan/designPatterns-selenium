@@ -1,6 +1,7 @@
 package org.designPatterns.pageObjects;
 
 import org.designPatterns.abstractComponents.SearchFlightAvail;
+import org.designPatterns.abstractComponents.StrategyFactor;
 import org.designPatterns.pageComponents.FooterBar;
 import org.designPatterns.pageComponents.MultiTrip;
 import org.designPatterns.pageComponents.NavigationBar;
@@ -29,8 +30,9 @@ public class TravelHomePage {
         return new FooterBar(driver, footerSectionElement);
     }
 
-    public void setBookingStrategy(SearchFlightAvail searchFlightAvail){
-        this.searchFlightAvail = searchFlightAvail;
+    public void setBookingStrategy(String strategyType){
+        StrategyFactor strategyFactor = new StrategyFactor(driver);
+        this.searchFlightAvail = strategyFactor.createStrategy(strategyType);
     }
 
     public void checkAvail(String origin, String destination){
